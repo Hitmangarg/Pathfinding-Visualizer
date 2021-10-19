@@ -14,6 +14,7 @@ export default class Graph extends Component {
     super(props);
     this.objectDraw = {
       start: this.placeStartOnClick,
+      weight: this.placeWeightOnClick,
       end: this.placeEndOnClick,
       wall: this.placeMazeWallOnClick,
       none: this.empty
@@ -183,7 +184,27 @@ export default class Graph extends Component {
 
     this.place = this.empty;
   };
+  // function to place a weighted node on click
+  placeWeightOnClick = p5 => {
+    let index = this.calculateIndex(p5.mouseX, p5.mouseY);
 
+    if (
+      index[0] < this.mazeHeight &&
+      index[0] >= 0 &&
+      index[1] < this.mazeWidth &&
+      index[1] >= 0
+    ) {
+      if (this.graph[index[0]][index[1]] === 0) {
+        this.graph[index[0]][index[1]] = 5;
+        this.colourBox(p5, index, [255, 20, 147]);
+      } else if (this.graph[index[0]][index[1]] === 5) {
+        this.graph[index[0]][index[1]] = 0;
+        this.colourBox(p5, index, 255);
+      }
+    }
+
+    this.place = this.empty;
+  };
   
   // function to animate the finding of path from start to end nodes
   animatePathFinding = (p5, order, colour1, colour2) => {
@@ -218,7 +239,7 @@ export default class Graph extends Component {
           this.colourBox(p5, [i, j], 255);
         }
         if (this.graph[i][j] === 5) {
-          this.colourBox(p5, [i, j], [255, 0, 255]);
+          this.colourBox(p5, [i, j], [255, 20, 147]);
         }
       }
     }
@@ -268,7 +289,7 @@ export default class Graph extends Component {
             p5,
             this.traversalInfo.traversalOrder,
             [49, 233, 129],
-            [30, 200, 100]
+            [200, 30, 98]
           );
           this.animatePathFinding(
             p5,

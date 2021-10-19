@@ -34,7 +34,7 @@ export default class CustomNavbar extends Component {
               </Dropdown.Toggle>
 
               <Dropdown.Menu className="nav-element">
-                {["Start", "Wall","End"].map(object => {
+                {["Start","Weight", "Wall","End"].map(object => {
                   return (
                     <Dropdown.Item
                       onClick={() => {
